@@ -1,0 +1,13 @@
+version: '3.7'
+services:
+  proyecto-monolitico:
+    container_name: proyecto-monolitico
+    image: proyecto-monolitico:v1
+    build:
+      context: .
+    ports:
+      - "4040:4040"
+    networks:
+      - proyecto-app
+networks:
+  proyecto-app:
