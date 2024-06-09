@@ -1,4 +1,4 @@
-version: '3.7'
+version: '3.9'
 services:
   proyecto-monolitico:
     container_name: proyecto-monolitico
@@ -9,5 +9,16 @@ services:
       - "4040:4040"
     networks:
       - proyecto-app
+  balanceador:
+    container_name: balanceador
+    image: balanceador:v1
+    build:
+      context: ./BalanceadorCarga
+    ports:
+      - "4003:80"
+    networks:
+      - proyecto-app
+
 networks:
   proyecto-app:
+

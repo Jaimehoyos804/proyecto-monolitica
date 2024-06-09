@@ -4,7 +4,7 @@ const TipoProyectoSchema = Schema({
     nombre: {
         type: String,
         required: [true, 'Nombre requerido'],
-        unique: [true]
+        
     },
     fechaCreacion: {
         type: Date,

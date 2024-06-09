@@ -13,7 +13,7 @@ router.post('/', createCliente)
 
 // consultar todos
 router.get('/', getCliente)
-
+//editar
 router.put('/:id', editClienteById)
 
 module.exports = router;
