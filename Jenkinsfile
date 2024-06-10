@@ -1,24 +1,15 @@
-pipeline{
-
-
+pipeline {
     agent any
 
-    stages{
-        
-        stage("Clonar Repositorio"){
-
-            steps{
-                //Clonar el repositorio
-                 git branch: 'main', url:https://github.com/Jaimehoyos804/proyecto-monolitica.git
-
+    stages {
+        stage("Clonar Repositorio") {
+            steps {
+                // Clonar el repositorio
+                git branch: 'main', url: 'https://github.com/Jaimehoyos804/proyecto-monolitica.git'
             }
-
         }
-        stage("Construcion de la imagen docker"){
-
-            steps{
-
-                steps {
+        stage("Construcción de la imagen docker") {
+            steps {
                 script {
                     withCredentials([
                         string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
@@ -27,36 +18,29 @@ pipeline{
                     }
                 }
             }
-
-            }
-
         }
-
-        stage("Desplegar containers docker"){
-
-            steps{
-                 script {
+        stage("Desplegar containers docker") {
+            steps {
+                script {
                     withCredentials([
-                            string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
+                        string(credentialsId: 'MONGO_URI', variable: 'MONGO_URI')
                     ]) {
                         sh 'docker-compose up -d'
                     }
                 }
             }
-        
-            }
-
         }
-
     }
-     post {
+
+    post {
         always {
-            emailext (
+            emailext(
                 subject: "Status del build: ${currentBuild.currentResult}",
                 body: "Se ha completado el build. Puede detallar en: ${env.BUILD_URL}",
                 to: "jaime.hoyos@est.iudigital.edu.co",
                 from: "jenkins@iudigital.edu.co"
             )
         }
+    }
 }
 
