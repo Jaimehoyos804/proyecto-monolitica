@@ -9,6 +9,9 @@ services:
       - "4040:4040"
     networks:
       - proyecto-app
+    environment:
+      - MONGO_URI=${MONGO_URI}
+      - PORT=4040
   balanceador:
     container_name: balanceador
     image: balanceador:v1
